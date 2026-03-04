@@ -71,12 +71,12 @@ export default function Navbar({ darkMode, setDarkMode, logout }) {
             </Link>
 
             <Link
-              to="/"
-              onClick={() => setOpen(false)}
-              className="block px-4 py-3 hover:bg-gray-500/20 transition"
+              to={localStorage.getItem("token") ? "/dashboard" : "/"}
+             onClick={() => setOpen(false)}
+             className="block px-4 py-3 hover:bg-gray-500/20 transition"
             >
-              🏠 Home
-            </Link>
+            🏠 Home
+           </Link>
 
             <button
               onClick={handleLogout}

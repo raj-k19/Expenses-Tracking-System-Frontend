@@ -1,6 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Home() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    // If already logged in → go to dashboard
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, [navigate]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
 
@@ -17,6 +29,7 @@ export default function Home() {
           >
             Login
           </Link>
+
           <Link
             to="/register"
             className="px-4 py-2 border border-green-500 rounded hover:bg-green-500 transition"
