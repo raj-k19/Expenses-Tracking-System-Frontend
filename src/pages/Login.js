@@ -17,10 +17,13 @@ export default function Login() {
     try {
       const { data } = await API.post("/auth/login", form);
       localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
+      if (data.user) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+      }
       navigate("/dashboard");
     } catch (error) {
-      alert("Invalid Credentials");
+      console.log(error.response?.data);
+      alert(error.response?.data?.message || "Login failed");
     }
   };
 

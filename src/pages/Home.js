@@ -1,17 +1,14 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export default function Home() {
-  const navigate = useNavigate();
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-
-    // If already logged in → go to dashboard
-    if (token) {
-      navigate("/dashboard");
-    }
-  }, [navigate]);
+    setIsLoggedIn(!!token);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
@@ -23,19 +20,30 @@ export default function Home() {
         </h1>
 
         <div className="flex gap-4">
-          <Link
-            to="/login"
-            className="px-4 py-2 bg-green-500 rounded hover:bg-green-600 transition"
-          >
-            Login
-          </Link>
+          {isLoggedIn ? (
+            <Link
+              to="/dashboard"
+              className="px-4 py-2 bg-green-500 rounded hover:bg-green-600 transition"
+            >
+              Dashboard
+            </Link>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="px-4 py-2 bg-green-500 rounded hover:bg-green-600 transition"
+              >
+                Login
+              </Link>
 
-          <Link
-            to="/register"
-            className="px-4 py-2 border border-green-500 rounded hover:bg-green-500 transition"
-          >
-            Register
-          </Link>
+              <Link
+                to="/register"
+                className="px-4 py-2 border border-green-500 rounded hover:bg-green-500 transition"
+              >
+                Register
+              </Link>
+            </>
+          )}
         </div>
       </div>
 
@@ -59,7 +67,7 @@ export default function Home() {
         </Link>
       </div>
 
-      {/* Features Section */}
+      {/* Features */}
       <div className="grid md:grid-cols-3 gap-10 px-10 mt-24 pb-20">
 
         <div className="bg-gray-800 p-6 rounded-xl shadow-lg text-center">

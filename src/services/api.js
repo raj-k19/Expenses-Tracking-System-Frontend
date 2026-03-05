@@ -3,6 +3,7 @@ import axios from "axios";
 const API = axios.create({
   // baseURL: "https://expenses-tracking-system-d4er.onrender.com/api"
   baseURL: "http://localhost:5000/api"
+
 });
 
 API.interceptors.request.use((req) => {

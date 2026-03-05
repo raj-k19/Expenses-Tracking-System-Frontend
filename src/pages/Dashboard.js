@@ -4,6 +4,9 @@ import API from "../services/api";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import Navbar from "../components/Navbar";
+import { useCallback } from "react";
+
+
 
 import {
   Chart as ChartJS,
@@ -45,23 +48,24 @@ export default function Dashboard() {
     navigate("/");
   };
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const summaryRes = await API.get("/budget/summary");
       const transactionRes = await API.get("/transactions");
   
       setSummary(summaryRes.data);
       setTransactions(transactionRes.data);
+  
     } catch (error) {
       alert("Session expired. Please login again.");
       navigate("/");
     }
-  };
+  }, [navigate]);
 
 
   useEffect(() => {
     fetchData();
-  }, [navigate]);
+  }, [fetchData]);
 
   const handleSetBudget = async () => {
     if (!budgetInput) {

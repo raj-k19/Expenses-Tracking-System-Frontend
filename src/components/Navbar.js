@@ -11,6 +11,7 @@ export default function Navbar({ darkMode, setDarkMode, logout }) {
 
   const storedUser = localStorage.getItem("user");
   const user = storedUser ? JSON.parse(storedUser) : null;
+
   const userInitial = user?.name ? user.name.charAt(0).toUpperCase() : "U";
 
   return (
@@ -32,6 +33,12 @@ export default function Navbar({ darkMode, setDarkMode, logout }) {
 
       {/* Right Section */}
       <div className="flex items-center gap-4 relative">
+
+        {user && (
+          <span className="text-green-400 text-sm">
+            Welcome back, {user.name} 👋
+          </span>
+        )}
 
         {/* Dark Mode Toggle */}
         <button
@@ -71,12 +78,12 @@ export default function Navbar({ darkMode, setDarkMode, logout }) {
             </Link>
 
             <Link
-              to={localStorage.getItem("token") ? "/dashboard" : "/"}
-             onClick={() => setOpen(false)}
-             className="block px-4 py-3 hover:bg-gray-500/20 transition"
+              to="/"
+              onClick={() => setOpen(false)}
+              className="block px-4 py-3 hover:bg-gray-500/20 transition"
             >
-            🏠 Home
-           </Link>
+              🏠 Home
+            </Link>
 
             <button
               onClick={handleLogout}
